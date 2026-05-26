@@ -55,33 +55,32 @@ function weekRangeStr(weekRange) {
   return `(第${weekRange[0]}-${weekRange[1]}周)`;
 }
 
-// 课表数据
+// 课表数据（已根据PDF表格逐坐标核实）
 // day: 1=周一 ... 7=周日
 // weekRange: [start, end] 或 null(不限)
 const SCHEDULE = [
   // ===== 周一 =====
   { day: 1, period: '1-2节', name: '工程经济与管理', location: '思源楼-331', teacher: '赵灵芝', weekRange: [9, 16] },
-  { day: 1, period: '5-6节', name: '路基路面工程', location: '知行楼-C109-智慧教室', teacher: '郭威', weekRange: [1, 16] },
-  { day: 1, period: '7-8节', name: '桥梁工程', location: '思源楼-408', teacher: '任一平', weekRange: [1, 16] },
+  { day: 1, period: '3-4节', name: '道路勘测设计', location: '思源楼-423', teacher: '李刚', weekRange: [1, 8] },
 
   // ===== 周二 =====
-  { day: 2, period: '1-2节', name: '工程经济与管理', location: '思源楼-331', teacher: '赵灵芝', weekRange: [9, 16] },
-  { day: 2, period: '3-4节', name: '道路勘测设计', location: '思源楼-423', teacher: '李刚', weekRange: [1, 8] },
-  { day: 2, period: '5-6节', name: '道路勘测设计', location: '思源楼-423', teacher: '李刚', weekRange: [1, 8] },
+  { day: 2, period: '3-4节', name: '国家安全教育', location: '思源楼-130', teacher: '樊朋秀', weekRange: [1, 8] },
+  { day: 2, period: '5-6节', name: '路基路面工程', location: '知行楼-C109-智慧教室', teacher: '郭威', weekRange: [1, 16] },
   { day: 2, period: '9-10节', name: '形势与政策（大三下）', location: '思源楼-109-智慧教室', teacher: '韩培玉', weekRange: [16, 16] },
 
   // ===== 周三 =====
-  { day: 3, period: '1-2节', name: '路基路面工程', location: '思源楼-401', teacher: '郭威', weekRange: [1, 16] },
-  { day: 3, period: '7-8节', name: '桥梁工程', location: '思源楼-430', teacher: '任一平', weekRange: [1, 16] },
+  { day: 3, period: '1-2节', name: '工程经济与管理', location: '思源楼-331', teacher: '赵灵芝', weekRange: [9, 16] },
+  { day: 3, period: '3-4节', name: '土木工程建设法规', location: '思源楼-210-智慧教室', teacher: '杨海燕', weekRange: [9, 16] },
+  { day: 3, period: '5-6节', name: '道路勘测设计', location: '思源楼-423', teacher: '李刚', weekRange: [1, 8] },
+  { day: 3, period: '7-8节', name: '桥梁工程', location: '思源楼-408', teacher: '任一平', weekRange: [1, 16] },
 
   // ===== 周四 =====
-  { day: 4, period: '3-4节', name: '国家安全教育', location: '思源楼-130', teacher: '樊朋秀', weekRange: [1, 8] },
-  { day: 4, period: '3-4节', name: '土木工程建设法规', location: '思源楼-210-智慧教室', teacher: '杨海燕', weekRange: [9, 16] },
-  { day: 4, period: '5-6节', name: '地下工程', location: '思源楼-304', teacher: '顾焕琪', weekRange: [1, 16] },
+  { day: 4, period: '1-2节', name: '路基路面工程', location: '思源楼-401', teacher: '郭威', weekRange: [1, 16] },
+  { day: 4, period: '7-8节', name: '桥梁工程', location: '思源楼-430', teacher: '任一平', weekRange: [1, 16] },
   { day: 4, period: '9-10节', name: '职业发展与就业指导（四）', location: '思源楼-109-智慧教室', teacher: '王勇强', weekRange: [1, 4] },
 
-  // ===== 周五~周日 无课 =====
-  // 数据中无课程即为无课
+  // ===== 周五 =====
+  { day: 5, period: '5-6节', name: '地下工程', location: '思源楼-304', teacher: '顾焕琪', weekRange: [1, 16] },
 ];
 
 /**
