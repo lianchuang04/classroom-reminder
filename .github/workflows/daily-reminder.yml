@@ -35,5 +35,4 @@ jobs:
         if: steps.check-day.outputs.day < 5
         run: node src/index.js
         env:
-          WX_PUSHER_APP_TOKEN: ${{ secrets.WX_PUSHER_APP_TOKEN }}
-          WX_PUSHER_UID: ${{ secrets.WX_PUSHER_UID }}
+          SERVER_CHAN_KEY: ${{ secrets.SERVER_CHAN_KEY }}

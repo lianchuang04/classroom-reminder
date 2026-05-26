@@ -1,14 +1,13 @@
 const axios = require('axios');
 const { generateMessage, getTodayCourses, getCurrentWeek } = require('./schedule');
 
-// WxPusher 配置
-const WX_PUSHER_APP_TOKEN = process.env.WX_PUSHER_APP_TOKEN;
-const WX_PUSHER_UID = process.env.WX_PUSHER_UID;
+// Server酱 配置
+const SEND_KEY = process.env.SERVER_CHAN_KEY;
 
 async function sendWeChatMessage(content) {
-  if (!WX_PUSHER_APP_TOKEN || !WX_PUSHER_UID) {
-    console.error('❌ 未配置 WxPusher 环境变量');
-    console.error('请设置 WX_PUSHER_APP_TOKEN 和 WX_PUSHER_UID');
+  if (!SEND_KEY) {
+    console.error('❌ 未配置 Server酱 环境变量');
+    console.error('请设置 SERVER_CHAN_KEY');
     process.exit(1);
   }
 
@@ -24,18 +23,20 @@ async function sendWeChatMessage(content) {
   const fullContent = content + footer;
 
   try {
-    const res = await axios.post('https://wxpusher.zjiecode.com/api/send/message', {
-      appToken: WX_PUSHER_APP_TOKEN,
-      content: fullContent,
-      contentType: 1, // 1=文字, 2=html, 3=markdown
-      uids: [WX_PUSHER_UID],
-    });
+    const res = await axios.post(
+      `https://sctapi.ftqq.com/${SEND_KEY}.send`,
+      new URLSearchParams({
+        title: `${today.dayName}课表提醒 | 第${week}周`,
+        desp: fullContent.replace(/\n/g, '\n\n'),
+      }),
+      { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+    );
 
-    if (res.data.code === 1000) {
+    if (res.data.code === 0) {
       console.log('✅ 微信推送成功');
       console.log(`📨 消息内容:\n${fullContent}`);
     } else {
-      console.error('❌ 推送失败:', res.data.msg || res.data);
+      console.error('❌ 推送失败:', res.data.message || JSON.stringify(res.data));
       process.exit(1);
     }
   } catch (err) {
