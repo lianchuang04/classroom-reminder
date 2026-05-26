@@ -1,0 +1,39 @@
+name: 每日课表提醒
+
+on:
+  schedule:
+    # 每天早上 7:00 (北京时间 UTC+8, 即 UTC 23:00)
+    - cron: '0 23 * * *'
+  workflow_dispatch:  # 支持手动触发
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 安装依赖
+        run: npm install
+
+      - name: 判断今天是否有课（周五~周日无课）
+        id: check-day
+        run: |
+          DAY=$(TZ='Asia/Shanghai' date +%u)
+          echo "day=$DAY" >> $GITHUB_OUTPUT
+          if [ "$DAY" -ge 5 ]; then
+            echo "📅 今天是周$DAY，没有课，跳过推送"
+          else
+            echo "📅 今天是周$DAY，有课，准备推送"
+          fi
+
+      - name: 发送课表提醒
+        if: steps.check-day.outputs.day < 5
+        run: node src/index.js
+        env:
+          WX_PUSHER_APP_TOKEN: ${{ secrets.WX_PUSHER_APP_TOKEN }}
+          WX_PUSHER_UID: ${{ secrets.WX_PUSHER_UID }}

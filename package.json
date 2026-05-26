@@ -1,0 +1,12 @@
+{
+  "name": "classroom-reminder",
+  "version": "1.0.0",
+  "description": "每日课表提醒 - 推送至微信",
+  "main": "src/index.js",
+  "scripts": {
+    "remind": "node src/index.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.0"
+  }
+}
