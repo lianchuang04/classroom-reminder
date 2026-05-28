@@ -1,6 +1,6 @@
 name: 每日课表提醒
 
-  on:
+on:
     schedule:
       # 北京时间 0:00 (UTC 16:00) — 主触发
       - cron: '0 16 * * *'
@@ -8,7 +8,7 @@ name: 每日课表提醒
       - cron: '30 16 * * *'
     workflow_dispatch:  # 支持手动触发
 
-  jobs:
+jobs:
     remind:
       runs-on: ubuntu-latest
       steps:
